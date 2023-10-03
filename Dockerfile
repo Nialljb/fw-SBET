@@ -16,14 +16,17 @@ RUN apt-get update && apt-get install --no-install-recommends -y software-proper
     pip install importlib_metadata && \
     apt-get update && apt-get install jq -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# Installing main dependencies
-RUN git clone https://github.com/MIC-DKFZ/HD-BET && \
-    cd HD-BET && \
-    pip install -e .  
     
+# store the FSL public conda channel
+ENV FSL_CONDA_CHANNEL="https://fsl.fmrib.ox.ac.uk/fsldownloads/fslconda/public"
+RUN /opt/conda/bin/conda install -n base -c $FSL_CONDA_CHANNEL fsl-bet2 -c conda-forge
+# set FSLDIR so FSL tools can use it, in this minimal case, the FSLDIR will be the root conda directory
+ENV PATH="/opt/conda/bin:${PATH}"
+ENV FSLDIR="/opt/conda"
+
 # Configure entrypoint
 RUN bash -c 'chmod +rx $FLYWHEEL/run.py' && \
     bash -c 'chmod +rx $FLYWHEEL/app/main.sh' \
-ENTRYPOINT ["python","/flywheel/v0/run.py"] 
+    bash -c 'chmod +rx $FLYWHEEL/start.sh' \
+ENTRYPOINT ["bash"] 
 # Flywheel reads the config command over this entrypoint

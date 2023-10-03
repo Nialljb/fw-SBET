@@ -1,7 +1,7 @@
 {
     "author": "Niall Bourke",
     "cite": "",
-    "command": "python3 /flywheel/v0/run.py",
+    "command": "bash /flywheel/v0/start.sh",
     "config": {},
     "custom": {
         "analysis-level": "participant",
@@ -26,20 +26,20 @@
         },
         "gear-builder": {
             "category": "analysis",
-            "image": "flywheel/sbet:0.0.1"
+            "image": "flywheel/sbet:0.0.6"
         },
         "kcl-app-binary": "app/main.sh",
         "kcl-app-modalities": [
             "anat"
         ]
     },
-    "description": "Simple brain extraction (BET). Calculates the transform of the input image to a high resolution template and back projects the brain mask from this template with an edditional conservative eroding step.",
+    "description": "Simple brain extraction (BET). Calculates the transform of the input image to a high resolution template and back projects the brain mask from this template with an additional conservative eroding step.",
     "environment": {
         "CONDA_DIR": "/opt/conda",
         "FLYWHEEL": "/flywheel/v0",
         "GPG_KEY": "E3FF2839C048B25C084DEBE9B26995E310250568",
         "LANG": "C.UTF-8",
-        "PATH": "/opt/conda/bin:/opt/ants/bin/:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "PATH": "/opt/conda/bin:/opt/conda/bin:/opt/ants/bin/:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
         "PYTHON_GET_PIP_SHA256": "fa6f3fb93cce234cd4e8dd2beb54a51ab9c247653b52855a48dd44e6b21ff28b",
         "PYTHON_GET_PIP_URL": "https://github.com/pypa/get-pip/raw/c20b0cfd643cd4a19246ccf204e2997af70f6b21/public/get-pip.py",
         "PYTHON_PIP_VERSION": "21.2.3",
@@ -66,5 +66,5 @@
     "name": "sbet",
     "source": "",
     "url": "",
-    "version": "0.0.1"
+    "version": "0.0.6"
 }
