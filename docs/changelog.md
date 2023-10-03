@@ -8,4 +8,7 @@ Initiate
 03/10/2023
 "version": "0.0.6"
 - Install bet2 in Dockerfile. 
-  
+
+"version": "0.0.6"
+- Working version
+- Cleaning output file names

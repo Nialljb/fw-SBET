@@ -26,7 +26,7 @@
         },
         "gear-builder": {
             "category": "analysis",
-            "image": "flywheel/sbet:0.0.6"
+            "image": "flywheel/sbet:0.0.7"
         },
         "kcl-app-binary": "app/main.sh",
         "kcl-app-modalities": [
@@ -66,5 +66,5 @@
     "name": "sbet",
     "source": "",
     "url": "",
-    "version": "0.0.6"
+    "version": "0.0.7"
 }

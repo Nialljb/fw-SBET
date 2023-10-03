@@ -17,7 +17,7 @@ def bet():
     FLYWHEEL_BASE = "/flywheel/v0"
     INPUT_DIR = (FLYWHEEL_BASE + "/input/input/")
     biasCorrImage = (INPUT_DIR + "/isotropicReconstruction_corrected.nii.gz")
-    # WORK = (FLYWHEEL_BASE + "/work")
+    WORK = (FLYWHEEL_BASE + "/work")
     OUTPUT_DIR = (FLYWHEEL_BASE + "/output")
 
     studyHeadReference = FLYWHEEL_BASE + "/app/template/UCT-T2.nii.gz"
@@ -32,24 +32,24 @@ def bet():
     antsMIWarp = "ANTS 3 -G -m MI["
 
     # now perform the nonlinear registration using the whole head as an initial step
-    wholeHeadRegisteredImage = OUTPUT_DIR + "/wholeHeadReference.nii.gz"
+    wholeHeadRegisteredImage = WORK + "/wholeHeadReference.nii.gz"
 
     subprocess.run([antsMIWarp + studyHeadReference + ", " + biasCorrImage + ", 1, 96] -o " + wholeHeadRegisteredImage + " -i 100x80x40 -r Gauss[3,1] -t SyN[0.25] --use-Histogram-Matching --MI-option 32x16000 --number-of-affine-iterations 10000x10000x10000x10000x10000"], shell=True, capture_output=True)
 
-    headWarpField = OUTPUT_DIR + "/wholeHeadReferenceWarp.nii.gz"
-    headAffineField = OUTPUT_DIR + "/wholeHeadReferenceAffine.txt"
-    headInverseField = OUTPUT_DIR + "/wholeHeadReferenceInverseWarp.nii.gz"
+    headWarpField = WORK + "/wholeHeadReferenceWarp.nii.gz"
+    headAffineField = WORK + "/wholeHeadReferenceAffine.txt"
+    headInverseField = WORK + "/wholeHeadReferenceInverseWarp.nii.gz"
 
-    alignedWholeHeadImage = OUTPUT_DIR + "/wholeHeadReferenceAligned.nii.gz"
+    alignedWholeHeadImage = WORK + "/wholeHeadReferenceAligned.nii.gz"
     subprocess.run([antsImageAlign + " " + biasCorrImage + " " + alignedWholeHeadImage + " -R " + studyHeadReference + " " + headWarpField + " " + headAffineField + " --use-BSpline"], shell=True, capture_output=True)
 
     # # now reverse align the brain mask to the individual
-    individualBrainMask = OUTPUT_DIR + "/brainMask.nii.gz"
+    individualBrainMask = OUTPUT_DIR + "/isotropicReconstruction_corrected_sbet_mask.nii.gz"
     subprocess.run([antsImageAlign + " " + studyBrainMask + " " + individualBrainMask + " -R " + biasCorrImage + " -i " + headAffineField + " " + headInverseField + " --use-BSpline"], shell=True, capture_output=True)
 
     # multiply the brain mask against the whole head image and then bet the image to refine the brain mask
-    individualBrainMaskedImage = OUTPUT_DIR + "/maskedBrain.nii.gz"
-    refinedIndividualBrainMaskedImage = OUTPUT_DIR + "/isotropicReconstruction_corrected_brain.nii.gz"
+    individualBrainMaskedImage = OUTPUT_DIR + "/initialBrainMaskedImage.nii.gz"
+    refinedIndividualBrainMaskedImage = OUTPUT_DIR + "/isotropicReconstruction_corrected_sbet_brain.nii.gz"
     
     subprocess.run(["fslmaths " + biasCorrImage + " -mul " + individualBrainMask + " " + individualBrainMaskedImage], shell=True)
     subprocess.run(["bet2 " + individualBrainMaskedImage + " " + refinedIndividualBrainMaskedImage + " -f .1 "], shell=True)
