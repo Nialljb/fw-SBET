@@ -26,14 +26,14 @@
         },
         "gear-builder": {
             "category": "analysis",
-            "image": "flywheel/sbet:0.1.1"
+            "image": "flywheel/sbet:0.1.2"
         },
         "kcl-app-binary": "app/main.sh",
         "kcl-app-modalities": [
             "anat"
         ]
     },
-    "description": "Simple brain extraction (BET). Calculates the transform of the input image to a high resolution template and back projects the brain mask from this template with an additional conservative eroding step.",
+    "description": "Simple brain extraction (BET). Calculates the transform of the input image to a high resolution template and back projects the brain mask from this template with an additional conservative eroding step. **HARDCODED Template: Infant T2w (3-4yo) generated from UCT**",
     "environment": {
         "CONDA_DIR": "/opt/conda",
         "FLYWHEEL": "/flywheel/v0",
@@ -66,5 +66,5 @@
     "name": "sbet",
     "source": "",
     "url": "",
-    "version": "0.1.1"
+    "version": "0.1.2"
 }

@@ -12,3 +12,8 @@ Initiate
 "version": "0.0.6"
 - Working version
 - Cleaning output file names
+
+08/01/2024
+"version": 0.1.2
+- Removed some hardcoding so output saved as suffix to input filename 
+- Parse input through seperate module 
