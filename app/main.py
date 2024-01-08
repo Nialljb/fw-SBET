@@ -25,7 +25,6 @@ def bet(biasCorrImage):
     print("ref is: ", studyBrainReference)
     print("work is: ", WORK)
 
-
 # Define the output file names
     print("input_image: ", biasCorrImage)
     input_image = str(biasCorrImage)
@@ -60,12 +59,12 @@ def bet(biasCorrImage):
     subprocess.run([antsImageAlign + " " + biasCorrImage + " " + alignedWholeHeadImage + " -R " + studyHeadReference + " " + headWarpField + " " + headAffineField + " --use-BSpline"], shell=True, check=True)
 
     # # now reverse align the brain mask to the individual
-    # individualBrainMask = OUTPUT_DIR + "/isotropicReconstruction_corrected_sbet_mask.nii.gz"
+    individualBrainMask = OUTPUT_DIR + "/" + individualBrainMask
     subprocess.run([antsImageAlign + " " + studyBrainMask + " " + individualBrainMask + " -R " + biasCorrImage + " -i " + headAffineField + " " + headInverseField + " --use-BSpline"], shell=True, check=True)
 
     # multiply the brain mask against the whole head image and then bet the image to refine the brain mask
     individualBrainMaskedImage = OUTPUT_DIR + "/initialBrainMaskedImage.nii.gz"
-    # refinedIndividualBrainMaskedImage = OUTPUT_DIR + "/isotropicReconstruction_corrected_sbet_brain.nii.gz"
+    refinedIndividualBrainMaskedImage = OUTPUT_DIR + "/" + refinedIndividualBrainMaskedImage
     
     subprocess.run(["fslmaths " + biasCorrImage + " -mul " + individualBrainMask + " " + individualBrainMaskedImage], shell=True)
     subprocess.run(["bet2 " + individualBrainMaskedImage + " " + refinedIndividualBrainMaskedImage + " -f .1 "], shell=True)

@@ -12,7 +12,7 @@ def parse_config(
         input_image
     """
 
-    input_image = gear_context.get_input_path("nifti-input")
+    input_image = gear_context.get_input_path("input")
 
     # gear_inputs, 
     return input_image

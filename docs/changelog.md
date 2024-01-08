@@ -14,6 +14,6 @@ Initiate
 - Cleaning output file names
 
 08/01/2024
-"version": 0.1.2
+"version": 0.1.3
 - Removed some hardcoding so output saved as suffix to input filename 
 - Parse input through seperate module 

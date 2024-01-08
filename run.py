@@ -17,6 +17,7 @@ log = logging.getLogger(__name__)
 def main(context: GearToolkitContext) -> None:
     """Parses config and runs."""    
     input_image = parse_config(context)
+    print("run.py; input_image: ", input_image)
     bet(input_image)
 
 # Only execute if file is run as main, not when imported by another module
